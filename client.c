@@ -80,7 +80,11 @@ int main(void)
             exit(SOCKET_FAILURE);
         }
 
-        printf("%s\n", message);
+        if (strcmp(message, "OK"))
+        {
+            printf("%s\n", message);
+        }
+
     }
 
     // Close socket
