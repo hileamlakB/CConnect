@@ -1,0 +1,7 @@
+Once socket is setup, how do you add multithreading
+    - You create multiple threads and make each thread accept a connection
+    - This will fix the number of threads you spawn
+    - look for a dynamic way to scale and remove threads based on load
+How do you convert from an into into a 4 bit char array?
+    - use unions
+How should
