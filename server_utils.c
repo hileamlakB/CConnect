@@ -105,6 +105,7 @@ String formate_messages(User *user)
 
     user->recieved_messgs = NULL;
     msg[msg_len] = '\0';
+    msg_len++;
     return (String){
         .s = msg,
         .len = msg_len};
@@ -284,8 +285,8 @@ String execute_command(int client_socket, char *cl_msg, error_message *err)
     // return the result as a string
 
     String return_msg = {
-        .len = 2,
-        .s = "OK"};
+        .len = 3,
+        .s = "OK\0"};
 
     int *msg_int = (int *)cl_msg;
     int version = msg_int[0];
