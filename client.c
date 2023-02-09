@@ -27,6 +27,7 @@ int main(void)
     // Prepare the sockaddr_in structure
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = inet_addr("68.183.26.103");
+    // server.sin_addr.s_addr = inet_addr("127.0.0.1");
     server.sin_port = htons(8888);
 
     // Connect to server
@@ -64,7 +65,7 @@ int main(void)
 
         if (error.error_code != 0)
         {
-            printf("Error: %s", error.error_message);
+            printf("Error: %s\n", error.error_message);
             continue;
         }
 
@@ -82,9 +83,10 @@ int main(void)
 
         if (strcmp(message, "OK"))
         {
-            printf("%s\n", message);
+            int msg_len = ((int *)message)[0];
+            message[msg_len + sizeof(int)] = '\0';
+            printf("%s\n", message + sizeof(int));
         }
-
     }
 
     // Close socket

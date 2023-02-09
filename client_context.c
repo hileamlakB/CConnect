@@ -33,18 +33,33 @@ void *handle_client(void *arg)
         {
             client_message[read_size] = '\0';
 
-            error_message err;
+            error_message err = (error_message){
+                .error_code = 0,
+                .error_message = "OK",
+            };
             String res = execute_command(client_socket, client_message, &err);
 
             // send response
             if (err.error_code != 0)
             {
-                send(client_socket, err.error_message, strlen(err.error_message), 0);
+                int msg_len = strlen(err.error_message);
+                char *msg = malloc(msg_len + sizeof(int) + 1);
+                memcpy(msg, &msg_len, sizeof(int));
+                memcpy(msg + sizeof(int), err.error_message, msg_len);
+                msg[msg_len + sizeof(int)] = '\0';
+
+                send(client_socket, msg, msg_len + sizeof(int) + 1, 0);
+                free(msg);
             }
             else
             {
                 printf("sennding %s\n", res.s);
-                send(client_socket, res.s, res.len, 0);
+                char *msg = malloc(res.len + sizeof(int) + 1);
+                memcpy(msg, &res.len, sizeof(int));
+                memcpy(msg + sizeof(int), res.s, res.len);
+                msg[res.len + sizeof(int)] = '\0';
+                send(client_socket, msg, res.len + sizeof(int) + 1, 0);
+                free(msg);
             }
         }
 
