@@ -73,34 +73,39 @@ void create_account(int client_socket, char *cl_msg, String *msg, error_message 
 
     // add user to users hashtable
     put_ht(users, name, new_user);
+
+    msg->s = "Account created successfully!!";
+    msg->len = strlen(msg->s);
 }
 
 String formate_messages(User *user)
 {
     char *msg = malloc(sizeof(char) * INPUT_SIZE);
-    int msg_len = 0;
+    char *rec_msg = "Received Messages: \n";
+    memcpy(msg, rec_msg, strlen(rec_msg));
+
+    int msg_len = strlen(rec_msg);
 
     linked_list *curr = user->recieved_messgs;
-    linked_list *prev = NULL;
+    // linked_list *prev = NULL;
     while (curr != NULL)
     {
         client_message *m = (client_message *)curr->data;
         memcpy(msg + msg_len, m->sender.s, m->sender.len);
         msg_len += m->sender.len;
-        msg[msg_len] = ':';
-        msg_len++;
+        memcpy(msg + msg_len, ": ", 2);
+        msg_len += 2;
         memcpy(msg + msg_len, m->msg.s, m->msg.len);
         msg_len += m->msg.len;
-        msg[msg_len] = ';';
-        msg_len++;
+        memcpy(msg + msg_len, ";\n", 2);
+        msg_len += 2;
 
-        prev = curr;
+        // prev = curr;
         curr = curr->next;
-
-        free(m->sender.s);
-        free(m->msg.s);
-        free(m);
-        free(prev);
+        // free(m->sender.s);
+        // free(m->msg.s);
+        // free(m);
+        // free(prev);
     }
 
     user->recieved_messgs = NULL;
@@ -167,6 +172,16 @@ void login_account(int client_socket, char *cl_msg, String *msg, error_message *
         return;
     }
 
+    // make sure no one else is logged in on this client
+    result = get_ht(socket_map, &client_socket);
+    if (result.values_size > 0)
+    {
+        // user already logged in
+        err->error_code = MULTIPLE_USERS_ON_SAME_SOCKET;
+        err->error_message = MULTIPLE_USERS_ON_SAME_SOCKET_MSG;
+        return;
+    }
+
     if (strcmp(user->password.s, password) != 0)
     {
         // wrong password
@@ -181,12 +196,19 @@ void login_account(int client_socket, char *cl_msg, String *msg, error_message *
     user->client_socket = client_socket;
 
     // add user to socket hashtable
-    put_ht(socket_map, &client_socket, user);
+    int *client_socket_copy = malloc(sizeof(int));
+    *client_socket_copy = client_socket;
+    put_ht(socket_map, client_socket_copy, user);
 
     // send the user messages if there are any
     if (user->recieved_messgs != NULL)
     {
         *msg = formate_messages(user);
+    }
+    else
+    {
+        msg->s = "Login successful!!";
+        msg->len = strlen(msg->s);
     }
 }
 
@@ -231,7 +253,7 @@ void send_message(int client_socket, char *cl_msg, String *msg, error_message *e
     // add the message to the receiver's message queue
     User *reciever = result.values[0];
 
-    if (reciever->recieved_messgs)
+    if (!reciever->recieved_messgs)
     {
         reciever->recieved_messgs = malloc(sizeof(linked_list));
     }
@@ -250,6 +272,10 @@ void send_message(int client_socket, char *cl_msg, String *msg, error_message *e
         .s = message,
         .len = message_len};
     reciever->recieved_messgs->data = new_message;
+
+    // send the user messages if there are any
+    msg->s = "Message sent successfully!!";
+    msg->len = strlen(msg->s);
 }
 
 void delete_account(int client_socket, char *cl_msg, String *msg, error_message *err)
@@ -273,6 +299,9 @@ void delete_account(int client_socket, char *cl_msg, String *msg, error_message 
 
     // delete the user from the socket hashtable
     erase_ht(socket_map, &client_socket);
+
+    msg->s = "Account deleted successfully!!";
+    msg->len = strlen(msg->s);
 
     // free the user
 }

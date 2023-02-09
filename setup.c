@@ -146,3 +146,7 @@ void setup_thread_pool()
         pthread_create(&threads[i], NULL, handle_client, NULL);
     }
 }
+
+// change user login status to offline once the client disconnects
+// or another login happens on the same client
+// or prevent multiple logins on the same client
