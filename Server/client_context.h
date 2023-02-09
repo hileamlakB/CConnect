@@ -1,7 +1,7 @@
 #ifndef CLIENT_CONTEXT_H
 #define CLIENT_CONTEXT_H
 
-#include "utils.h"
+#include "../utils.h"
 #include "data_structures.h"
 
 #define HASH_SIZE 101

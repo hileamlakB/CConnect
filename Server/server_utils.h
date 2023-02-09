@@ -1,7 +1,7 @@
 #ifndef SERVER_UTILS
 #define SERVER_UTILS
 
-#include "utils.h"
+#include "../utils.h"
 #include "client_context.h"
 #include <sys/socket.h>
 #include <arpa/inet.h>

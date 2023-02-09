@@ -1,7 +1,7 @@
 #ifndef CLIENT_UTILS_H
 #define CLIENT_UTILS_H
 
-#include "utils.h"
+#include "../utils.h"
 #define SOCKET_FAILURE 10
 #define EXIT -2
 #define HELP -1

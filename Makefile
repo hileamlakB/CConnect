@@ -14,10 +14,10 @@ INCLUDES = include
 
 
 
-client: client.o  client_utils.o 
+client: Client/client.o  Client/client_utils.o 
 	$(CC) $(CFLAGS) $(DEPCFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
 
-server: server.o client_context.o server_utils.c hash_table.c setup.o
+server: Server/server.o Server/client_context.o Server/server_utils.c Server/hash_table.c Server/setup.o
 	$(CC) $(CFLAGS) $(DEPCFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
 
 clean:
