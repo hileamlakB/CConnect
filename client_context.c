@@ -63,7 +63,7 @@ void *handle_client(void *arg)
         // remove from client hash table
         // set the status of user to logged out if they were logged int
         hash_elements result = get_ht(socket_map, (hash_element)&client_socket);
-        if (result.values > 0)
+        if (result.values_size > 0)
         {
             User *u = result.values[0];
             u->user_logged_in = false;
