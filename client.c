@@ -26,7 +26,7 @@ int main(void)
 
     // Prepare the sockaddr_in structure
     server.sin_family = AF_INET;
-    server.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server.sin_addr.s_addr = inet_addr("68.183.26.103");
     server.sin_port = htons(8888);
 
     // Connect to server
