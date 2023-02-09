@@ -15,6 +15,12 @@
 #define HELP_EXIT "exit \n \t Exits the program. \n"
 #define HELP_HELP "help \n \t Displays this help message. \n"
 
+#define LOGIN_MSG "LOGING SUCCESSFUL"
+#define SENT_MSG "SENT"
+#define RECEIVED_MSG "RECEIVED"
+#define DELETED_MSG "DELETED"
+#define CREATED_MSG "ACCOUNT CREATED"
+
 String parse_create(char *message, error_message *error);
 String parse_list(char *message, error_message *error);
 String parse_login(char *message, error_message *error);
