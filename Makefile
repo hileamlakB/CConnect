@@ -4,7 +4,7 @@ all: server_build client_build
 CC = gcc -std=c99 -g -ggdb3
 
 # Default optimization level
-O ?= 2
+O ?= 0
 
 # Flags and other libraries
 override CFLAGS += -Wall -Wextra -pedantic -pthread -O$(O) -I$(INCLUDES)
