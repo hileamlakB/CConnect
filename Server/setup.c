@@ -6,6 +6,7 @@
 #include <stdatomic.h>
 #include <string.h>
 #include <unistd.h>
+#include <sched.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -70,6 +71,7 @@ void idle_task()
 {
     while (true)
     {
+        sched_yield();
     }
 }
 
@@ -90,13 +92,22 @@ void signal_handler(int sig)
     switch (sig)
     {
     case SIGINT:
-        write(fd, "Caught SIGINT!\n", 15);
+        ssize_t err = write(fd, "Caught SIGINT!\n", 15);
+        if (err < -1) {
+            exit(err);
+        }
         break;
     case SIGSEGV:
-        write(fd, "Caught SIGSEGV!\n", 16);
+        ssize_t err = write(fd, "Caught SIGSEGV!\n", 16);
+        if (err < -1) {
+            exit(err);
+        }
         break;
     default:
-        write(fd, "Caught unhandled signal!\n", 26);
+        ssize_t err = write(fd, "Caught unhandled signal!\n", 26);
+        if (err < -1) {
+            exit(err);
+        }
         break;
     }
 

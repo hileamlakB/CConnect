@@ -1,0 +1,6 @@
+# Ignore builds
+client_build
+server_build
+
+# logs
+log.txt
