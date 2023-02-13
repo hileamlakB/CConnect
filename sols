@@ -1,9 +1,0 @@
-Instead of a sigmoid function, 
-    how about something like a gasian function tht gives a probabiltity close to one at some destinace away from the center that gets worse as you go futher
-
-Use a circuilar bounary funcition instead of a linear one
-
-- Is KNN good for this, Multiple cricular cotainers that aren't connected like a KNN appraoch
-
-ODD - out of distribution detection
-distrbution modeling
