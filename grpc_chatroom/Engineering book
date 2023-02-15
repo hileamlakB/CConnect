@@ -1,0 +1,14 @@
+1. First install grpc for python and follow the tuturial from grpc
+python -m pip install --upgrade pip
+python -m pip install grpcio
+
+2. Install the protoc compiler
+python -m pip install grpcio-tools
+
+3. Define the service in a .proto file.
+
+4. Generate server and client code with protoc
+python -m grpc_tools.protoc -I . --python_out=. --pyi_out=. --grpc_python_out=. spec.proto
+
+
+Logging out is optional but is important otherwise other user might be able to see recieved messages

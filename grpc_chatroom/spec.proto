@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+// Define a gRPC service for client-server communication
+service ClientAccount {
+  // Define an RPC for creating an account
+  rpc CreateAccount(CreateAccountRequest) returns (ServerResponse);
+
+  // Define an RPC for listing all users in the database
+  rpc ListUsers(Empty) returns (Users);
+
+  // Define an RPC for logging in to an account
+  rpc Login(LoginRequest) returns (ServerResponse);
+
+  // Define an RPC for sending a message to a recipient
+  rpc Send(SendRequest) returns (ServerResponse);
+
+  // Define an RPC for receiving messages
+  //   rpc SubscribeMessage(ReceiveRequest) returns (stream Message);
+
+  // Define an RPC for receiving messages
+  rpc ReceiveMessage(ReceiveRequest) returns (Messages);
+
+  // Define an RPC for deleting an account
+  rpc DeleteAccount(DeleteAccountRequest) returns (ServerResponse);
+
+  // Define an RPC for logging out of an account
+  rpc Logout(DeleteAccountRequest) returns (ServerResponse);
+}
+
+// Request message for creating an account
+message CreateAccountRequest {
+  string username = 1;
+  string password = 2;
+}
+
+// Response message for server to send back to the client
+message ServerResponse {
+  int32 error_code = 1;
+  string error_message = 2;
+  string session_id = 3;
+}
+
+// Request message for logging in
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+// Request message for sending a message
+message SendRequest {
+  string to = 1;
+  string message = 2;
+  string session_id = 3;
+}
+
+// Request message for receiving messages
+message ReceiveRequest { string session_id = 1; }
+
+// Request message for deleting an account
+message DeleteAccountRequest { string session_id = 1; }
+
+// Response message for server to send back to the client
+message Message {
+  string from_ = 1;
+  string message = 2;
+}
+
+message Messages {
+  int32 error_code = 1;
+  string error_message = 2;
+  repeated Message message = 3;
+}
+
+message Empty {}
+
+message User {
+  string username = 1;
+  string status = 2;
+}
+
+message Users { repeated User user = 1; }
