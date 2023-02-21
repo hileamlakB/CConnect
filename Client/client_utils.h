@@ -5,7 +5,7 @@
 #define SOCKET_FAILURE 10
 #define EXIT -2
 #define HELP -1
-#define HELP_MSG "Jeremy Is a socket based chat room. \n You can create an account, login, send messages, receive messages, and delete your account. \n To get more information on a specific command, type 'help <command>'. \n Commands: \n create \n list \n login \n send \n receive \n delete \n help \n exit \n"
+#define HELP_MSG "CConnect is a socket based chat room. \n You can create an account, login, send messages, receive messages, and delete your account. \n To get more information on a specific command, type 'help <command>'. \n Commands: \n create \n list \n login \n send \n receive \n delete \n help \n exit \n"
 #define HELP_CREATE "create <username> <password> \n \t Creates a new account with the given username and password. \n"
 #define HELP_LIST "list \n \t Lists all users currently logged in. \n"
 #define HELP_LOGIN "login <username> <password> \n \t Logs in to an existing account with the given username and password. \n"

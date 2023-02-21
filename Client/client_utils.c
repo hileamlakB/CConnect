@@ -11,7 +11,7 @@
 
 String parse_create(char *message, error_message *error)
 {
-    int version = JER_HI_VERSION;
+    int version = VERSION_NO;
     int func_id = CREATE_ACCOUNT;
     char *name = strsep(&message, " ");
     if (name == NULL)
@@ -57,7 +57,7 @@ String parse_list(char *message, error_message *error)
     (void)message;
     (void)error;
 
-    int version = JER_HI_VERSION;
+    int version = VERSION_NO;
     int func_id = LIST_ACCOUNTS;
 
     // create a byte array
@@ -75,7 +75,7 @@ String parse_list(char *message, error_message *error)
 
 String parse_login(char *message, error_message *error)
 {
-    int version = JER_HI_VERSION;
+    int version = VERSION_NO;
     int func_id = LOGIN;
     char *name = strsep(&message, " ");
     if (name == NULL)
@@ -118,7 +118,7 @@ String parse_login(char *message, error_message *error)
 
 String parse_send(char *message, error_message *error)
 {
-    int version = JER_HI_VERSION;
+    int version = VERSION_NO;
     int func_id = SEND_MESSAGE;
     char *name = strsep(&message, " ");
     if (name == NULL)
@@ -162,7 +162,7 @@ String parse_receive(char *message, error_message *error)
 {
     (void)message;
     (void)error;
-    int version = JER_HI_VERSION;
+    int version = VERSION_NO;
     int func_id = RECEIVE_MESSAGE;
 
     // create a byte array
@@ -183,7 +183,7 @@ String parse_delete(char *message, error_message *error)
     (void)message;
     (void)error;
 
-    int version = JER_HI_VERSION;
+    int version = VERSION_NO;
     int func_id = DELETE_ACCOUNT;
 
     // create a byte array
