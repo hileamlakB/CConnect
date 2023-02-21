@@ -1,6 +1,7 @@
 # Ignore builds
 client_build
 server_build
+GRPC_implementation
 
 # logs
 log.txt

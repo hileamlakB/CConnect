@@ -250,6 +250,8 @@ void send_message(int client_socket, char *cl_msg, String *msg, error_message *e
         return;
     }
 
+    // lock the messege queue befor eadding the data
+    // otherwise there is a race condition case here
     // add the message to the receiver's message queue
     User *reciever = result.values[0];
 
