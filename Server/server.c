@@ -1,5 +1,3 @@
-
-
 #include <stdbool.h>
 #include "client_context.h"
 #include "server_utils.h"
