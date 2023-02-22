@@ -53,7 +53,7 @@ void *handle_client(void *arg)
             }
             else
             {
-                printf("sennding %s\n", res.s);
+                printf("sending %s\n", res.s);
                 char *msg = malloc(res.len + sizeof(int) + 1);
                 memcpy(msg, &res.len, sizeof(int));
                 memcpy(msg + sizeof(int), res.s, res.len);

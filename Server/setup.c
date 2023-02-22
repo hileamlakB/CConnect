@@ -91,7 +91,7 @@ void signal_handler(int sig)
 
     // Do more better logging and
     // cleanup including storing data
-    ssize_t err;
+
     switch (sig)
     {
     case SIGINT:

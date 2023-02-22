@@ -34,8 +34,9 @@ void *recieve_thread(void *args)
             perror("Receive failed");
             exit(SOCKET_FAILURE);
         }
-        if (strcmp(message, "OK"))
+        if (strncmp(message, "Received Messages", 17) == 0)
         {
+
             int msg_len = ((int *)message)[0];
             message[msg_len + sizeof(int)] = '\0';
             printf("%s\n", message + sizeof(int));
