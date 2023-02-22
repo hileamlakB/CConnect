@@ -28,13 +28,27 @@ Note that while we provide code for the server, you (the user) do not need to bu
 For more information about the specification of the wire protocol, please refer to `docs/Specification.md`
 
 ### Setup (gRPC)
-[TODO] Is there any setup required for this?
+
+The setup for the gRPC version follows largely from the gRPC tutorial in the documentation. First, install gRPC for Python by running
+```
+python -m pip install --upgrade pip
+python -m pip install grpcio
+```
+Then, install the `protoc` compiler by running `python -m pip install grpcio-tools`.
+
+Define the services in a `.proto` file, which we have done in `grpc_chatroom/spec.proto`.
+
+Finally, generate the server and client code with `protoc` by running `python -m grpc_tools.protoc -I . --python_out=. --pyi_out=. --grpc_python_out=. spec.proto`.
+
+To run the client, run the file `client.py` as you would any other Python file, and the command line based chatroom should launch.
 
 ## Testing
 
-[TODO] Unit tests!!!!
+Unit testing for the gRPC implementation can be found in `grpc_chatroom/unit_test.py`, where the core functionality of the chatroom are tested. To run the unit tests, run the file as you would any Python file, by simply running `python unit_test.py`. Ensure that the server is running in another terminal by running `python server.py`.
 
-For more information about unit tests, please refer to `docs/Tests.md`.
+Unit testing for the C wire protocol version can be found in [TODO]
+
+We have a pipeline setup, does the same implementation, except the input comes from a pipe. Write a shell script, pipe in the inputs to the client, spawn multiple clients. 
 
 ## Contributing
 If you'd like to contribute to this project, please fork the repository and make a pull request.
