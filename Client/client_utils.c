@@ -9,6 +9,10 @@
 #include "../utils.h"
 #include "client_utils.h"
 
+// This file contains utility functions used to parse client commands
+// into the format of the wire protocol before sending it across the wire to the server
+
+// Parse the CREATE_ACCOUNT command according to the wire protocol specification
 String parse_create(char *message, error_message *error)
 {
     int version = VERSION_NO;
@@ -52,6 +56,7 @@ String parse_create(char *message, error_message *error)
     return (String){.len = byte_len, .s = byte_array};
 }
 
+// Parse the LIST_ACCOUNTS command according to the wire protocol specification
 String parse_list(char *message, error_message *error)
 {
     (void)message;
@@ -73,6 +78,7 @@ String parse_list(char *message, error_message *error)
     return (String){.len = byte_len, .s = byte_array};
 }
 
+// Parse the LOGIN command according to the wire protocol specification
 String parse_login(char *message, error_message *error)
 {
     int version = VERSION_NO;
@@ -116,6 +122,7 @@ String parse_login(char *message, error_message *error)
     return (String){.len = byte_len, .s = byte_array};
 }
 
+// Parse the SEND_MESSAGE command according to the wire protocol specification
 String parse_send(char *message, error_message *error)
 {
     int version = VERSION_NO;
@@ -158,6 +165,7 @@ String parse_send(char *message, error_message *error)
     return (String){.len = byte_len, .s = byte_array};
 }
 
+// Parse the RECEIVE_MESSAGE command according to the wire protocol specification
 String parse_receive(char *message, error_message *error)
 {
     (void)message;
@@ -178,6 +186,7 @@ String parse_receive(char *message, error_message *error)
     return (String){.len = byte_len, .s = byte_array};
 }
 
+// Parse the DELETE_ACCOUNT command according to the wire protocol specification
 String parse_delete(char *message, error_message *error)
 {
     (void)message;
@@ -199,6 +208,8 @@ String parse_delete(char *message, error_message *error)
     return (String){.len = byte_len, .s = byte_array};
 }
 
+// Parse the help command
+// Print a different help message depending on which function the user needs help with
 String parse_help(char *message, error_message *error)
 {
     (void)message;
@@ -253,6 +264,8 @@ String parse_help(char *message, error_message *error)
     return (String){NULL, 0};
 }
 
+// The general input parser for the client.
+// Calls a different parse method depending on the type of command the user specifies to the client
 String parse_input(char *message, error_message *error)
 {
     char *token = strsep(&message, " ");

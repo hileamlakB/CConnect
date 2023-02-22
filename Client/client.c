@@ -91,36 +91,42 @@ int main(void)
         error_message error = {0, NULL};
         String cmd = parse_input(message, &error);
 
+        // print the help message to the console
         if (error.error_code == HELP)
         {
             printf("%s", error.error_message);
             continue;
         }
 
+        // exit the terminal
         if (error.error_code == EXIT)
         {
             printf("Graceful Exit\n");
             break;
         }
 
+        // error
         if (error.error_code != 0)
         {
             printf("Error: %s\n", error.error_message);
             continue;
         }
 
+        // failed to send
         if (send(socket_desc, cmd.s, cmd.len, 0) < 0)
         {
             perror("Send failed");
             exit(SOCKET_FAILURE);
         }
 
+        // failed to receive
         if (recv(socket_desc, message, INPUT_SIZE, 0) < 0)
         {
             perror("Receive failed");
             exit(SOCKET_FAILURE);
         }
 
+        // receive the message as normal
         if (strcmp(message, "OK") == 0)
         {
             int msg_len = ((int *)message)[0];

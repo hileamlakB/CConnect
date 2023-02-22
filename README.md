@@ -44,9 +44,11 @@ To run the client, run the file `client.py` as you would any other Python file, 
 
 ## Testing
 
-Unit testing for the gRPC implementation can be found in `grpc_chatroom/unit_test.py`, where the core functionality of the chatroom are tested. To run the unit tests, run the file as you would any Python file, by simply running `python unit_test.py`.
+Unit testing for the gRPC implementation can be found in `grpc_chatroom/unit_test.py`, where the core functionality of the chatroom are tested. To run the unit tests, run the file as you would any Python file, by simply running `python unit_test.py`. Ensure that the server is running in another terminal by running `python server.py`.
 
 Unit testing for the C wire protocol version can be found in [TODO]
+
+We have a pipeline setup, does the same implementation, except the input comes from a pipe. Write a shell script, pipe in the inputs to the client, spawn multiple clients. 
 
 ## Contributing
 If you'd like to contribute to this project, please fork the repository and make a pull request.
