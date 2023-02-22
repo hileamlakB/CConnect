@@ -12,3 +12,4 @@ log.txt
 .vscode
 __pycache__
 *.o
+*/*.o

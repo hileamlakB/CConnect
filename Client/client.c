@@ -41,6 +41,7 @@ void *recieve_thread(void *args)
             message[msg_len + sizeof(int)] = '\0';
             printf("%s\n", message + sizeof(int));
         }
+        sleep(2);
     }
 }
 
@@ -76,7 +77,61 @@ int main(void)
         exit(1);
     }
 
-    setup_receiver();
+    if (!isatty(STDIN_FILENO))
+    {
+        // get the commands one line at a time
+        // send the command to the server like the normal client does
+        // print the response from the server
+        char *line = NULL;
+        size_t len = 0;
+        ssize_t read;
+
+        while ((read = getline(&line, &len, stdin)) != -1)
+        {
+            line[strlen(line) - 1] = '\0';
+            // printf("Retrieved line of length %s:", line);
+            error_message error = {0, NULL};
+            String cmd = parse_input(line, &error);
+
+            if (error.error_code == HELP)
+            {
+                printf("%s", error.error_message);
+                continue;
+            }
+
+            if (error.error_code == EXIT)
+            {
+                printf("Graceful Exit\n");
+                break;
+            }
+
+            if (error.error_code != 0)
+            {
+                printf("Error: %s\n", error.error_message);
+                continue;
+            }
+
+            if (send(socket_desc, cmd.s, cmd.len, 0) < 0)
+            {
+                perror("Send failed");
+                exit(SOCKET_FAILURE);
+            }
+
+            if (recv(socket_desc, message, INPUT_SIZE, 0) < 0)
+            {
+                perror("Receive failed");
+                exit(SOCKET_FAILURE);
+            }
+
+            int msg_len = ((int *)message)[0];
+            message[msg_len + sizeof(int)] = '\0';
+            printf("%s\n", message + sizeof(int));
+        }
+
+        return 0;
+    }
+
+    // setup_receiver();
     // printf("Connected to server\n");
     printf("Welcome to the chat room! For a list of commands type help\n");
 
@@ -121,7 +176,7 @@ int main(void)
             exit(SOCKET_FAILURE);
         }
 
-        if (strcmp(message, "OK") == 0)
+        if (strcmp(message, "OK"))
         {
             int msg_len = ((int *)message)[0];
             message[msg_len + sizeof(int)] = '\0';
