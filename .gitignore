@@ -11,3 +11,4 @@ log.txt
 # Artifacts
 .vscode
 __pycache__
+*.o
