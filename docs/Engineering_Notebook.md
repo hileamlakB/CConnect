@@ -34,3 +34,20 @@ sudo apt-get install protobuf-compiler
 Compile the proto file with
 protoc -I . --cpp_out=. specs.proto
 protoc -I . --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` specs.proto
+
+[TODO, the contents below are from the old engineering book file in the grpc_chatroom folder]
+
+1. First install grpc for python and follow the tuturial from grpc
+python -m pip install --upgrade pip
+python -m pip install grpcio
+
+2. Install the protoc compiler
+python -m pip install grpcio-tools
+
+3. Define the service in a .proto file.
+
+4. Generate server and client code with protoc
+python -m grpc_tools.protoc -I . --python_out=. --pyi_out=. --grpc_python_out=. spec.proto
+
+
+Logging out is optional but is important otherwise other user might be able to see recieved messages
