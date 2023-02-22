@@ -11,6 +11,9 @@
 #include "data_structures.h"
 #include "client_context.h"
 
+// This file contains utility functions used to process the client's commands in the server,
+// perform the desired action, then return to the client.
+
 void list_accounts(int client_socket, char *cl_msg, String *msg, error_message *err)
 {
     (void)cl_msg;
