@@ -19,6 +19,7 @@ void *handle_client(void *arg)
         char client_message[INPUT_SIZE];
         int read_size;
 
+        // accept the client connection over the socket
         client_socket = accept(server_socket, (struct sockaddr *)&client, (socklen_t *)&c);
         if (client_socket < 0)
         {
@@ -39,7 +40,8 @@ void *handle_client(void *arg)
             };
             String res = execute_command(client_socket, client_message, &err);
 
-            // send response
+            // send response to client
+            // error response
             if (err.error_code != 0)
             {
                 int msg_len = strlen(err.error_message);
@@ -51,6 +53,7 @@ void *handle_client(void *arg)
                 send(client_socket, msg, msg_len + sizeof(int) + 1, 0);
                 free(msg);
             }
+            // normal response
             else
             {
                 printf("sending %s\n", res.s);

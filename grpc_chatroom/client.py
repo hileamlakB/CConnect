@@ -11,9 +11,6 @@ import time
 from utils import HelpMessages
 
 
-
-
-
 class Jarves_Client(cmd.Cmd):
     prompt = "Jarves> "
 
@@ -26,6 +23,7 @@ class Jarves_Client(cmd.Cmd):
 
         self.do_help("")
 
+    # The following methods parse the client input depending on the given command
     def do_list(self, arg):
         response = self.stub.ListUsers(spec_pb2.Empty())
         for user in response.user:

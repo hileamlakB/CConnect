@@ -16,6 +16,7 @@
 #include "data_structures.h"
 #include "client_context.h"
 
+// utilities for hashing
 hashtable *users = NULL;
 hashtable *socket_map = NULL;
 int server_socket;
@@ -75,6 +76,7 @@ void idle_task()
     }
 }
 
+// Handler to catch various errors and write them to the logs
 void signal_handler(int sig)
 {
     // write error to log file
@@ -156,7 +158,3 @@ void setup_thread_pool()
         pthread_create(&threads[i], NULL, handle_client, NULL);
     }
 }
-
-// change user login status to offline once the client disconnects
-// or another login happens on the same client
-// or prevent multiple logins on the same client

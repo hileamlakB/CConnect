@@ -2,6 +2,8 @@
 #include "client_context.h"
 #include "server_utils.h"
 
+// The main server routine, which does setup then sits idle
+// so the other threads can handle client requests
 int main()
 {
     setup_sig_handle();
