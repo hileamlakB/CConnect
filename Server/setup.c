@@ -89,23 +89,27 @@ void signal_handler(int sig)
 
     // Do more better logging and
     // cleanup including storing data
+    ssize_t err;
     switch (sig)
     {
     case SIGINT:
-        ssize_t err = write(fd, "Caught SIGINT!\n", 15);
-        if (err < -1) {
+        err = write(fd, "Caught SIGINT!\n", 15);
+        if (err < -1)
+        {
             exit(err);
         }
         break;
     case SIGSEGV:
-        ssize_t err = write(fd, "Caught SIGSEGV!\n", 16);
-        if (err < -1) {
+        err = write(fd, "Caught SIGSEGV!\n", 16);
+        if (err < -1)
+        {
             exit(err);
         }
         break;
     default:
-        ssize_t err = write(fd, "Caught unhandled signal!\n", 26);
-        if (err < -1) {
+        err = write(fd, "Caught unhandled signal!\n", 26);
+        if (err < -1)
+        {
             exit(err);
         }
         break;

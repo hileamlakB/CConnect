@@ -5,3 +5,7 @@ GRPC_implementation
 
 # logs
 log.txt
+
+# Artifacts
+.vscode
+__pycache__
