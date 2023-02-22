@@ -1,3 +1,5 @@
+# Wire Protocol Specification
+
 Functions the server responds to:
 CREATE_ACCOUNT 1
 LOGIN 2
