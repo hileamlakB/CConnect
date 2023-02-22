@@ -322,7 +322,7 @@ String execute_command(int client_socket, char *cl_msg, error_message *err)
     int function = msg_int[1];
 
     // check version
-    if (version != JER_HI_VERSION)
+    if (version != VERSION_NO)
     {
         err->error_code = INVALID_VERSION;
         err->error_message = INVALID_VERSION_MSG;

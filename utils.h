@@ -20,7 +20,7 @@ typedef struct message_header
     int func_id;
 } message_header;
 
-#define JER_HI_VERSION 0
+#define VERSION_NO 1
 #define VERSION_SIZE 4
 #define FUNCTION_SIZE 4
 #define STRING_LEN_SIZE 4
