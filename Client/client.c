@@ -9,10 +9,48 @@
 #include <stdbool.h>
 #include "../utils.h"
 #include "client_utils.h"
+#include <pthread.h>
+
+int socket_desc;
+
+void *recieve_thread(void *args)
+{
+    (void)args;
+    error_message er;
+    String parse_cmd = parse_receive(NULL, &er);
+    char *message = malloc(INPUT_SIZE * sizeof(char));
+
+    while (true)
+    {
+        // send message to socket
+        // if recives message display and yield for 2 seconds
+        if (send(socket_desc, parse_cmd.s, parse_cmd.len, 0) < 0)
+        {
+            perror("Send failed");
+            exit(SOCKET_FAILURE);
+        }
+        if (recv(socket_desc, message, INPUT_SIZE, 0) < 0)
+        {
+            perror("Receive failed");
+            exit(SOCKET_FAILURE);
+        }
+        if (strcmp(message, "OK"))
+        {
+            int msg_len = ((int *)message)[0];
+            message[msg_len + sizeof(int)] = '\0';
+            printf("%s\n", message + sizeof(int));
+        }
+    }
+}
+
+void setup_receiver()
+{
+    pthread_t reciever_t;
+    pthread_create(&reciever_t, NULL, recieve_thread, NULL);
+}
 
 int main(void)
 {
-    int socket_desc;
     struct sockaddr_in server;
     char *message = malloc(INPUT_SIZE * sizeof(char));
 
@@ -26,9 +64,9 @@ int main(void)
 
     // Prepare the sockaddr_in structure
     server.sin_family = AF_INET;
-    server.sin_addr.s_addr = inet_addr("68.183.26.103");
-    // server.sin_addr.s_addr = inet_addr("127.0.0.1");
-    server.sin_port = htons(8888);
+    // server.sin_addr.s_addr = inet_addr("68.183.26.103");
+    server.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server.sin_port = htons(2625);
 
     // Connect to server
     if (connect(socket_desc, (struct sockaddr *)&server, sizeof(server)) < 0)
@@ -37,6 +75,7 @@ int main(void)
         exit(1);
     }
 
+    setup_receiver();
     // printf("Connected to server\n");
     printf("Welcome to the chat room! For a list of commands type help\n");
 
@@ -81,7 +120,7 @@ int main(void)
             exit(SOCKET_FAILURE);
         }
 
-        if (strcmp(message, "OK"))
+        if (strcmp(message, "OK") == 0)
         {
             int msg_len = ((int *)message)[0];
             message[msg_len + sizeof(int)] = '\0';

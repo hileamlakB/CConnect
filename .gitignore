@@ -2,6 +2,8 @@
 client_build
 server_build
 GRPC_implementation
+*/__pycache__/*
+__pycache__
 
 # logs
 log.txt

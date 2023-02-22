@@ -87,28 +87,26 @@ void signal_handler(int sig)
         exit(1);
     }
 
+    int err;
+
     // Do more better logging and
     // cleanup including storing data
     switch (sig)
     {
     case SIGINT:
-        ssize_t err = write(fd, "Caught SIGINT!\n", 15);
-        if (err < -1) {
-            exit(err);
-        }
+        err = write(fd, "Caught SIGINT!\n", 15);
         break;
     case SIGSEGV:
-        ssize_t err = write(fd, "Caught SIGSEGV!\n", 16);
-        if (err < -1) {
-            exit(err);
-        }
+        err = write(fd, "Caught SIGSEGV!\n", 16);
         break;
     default:
-        ssize_t err = write(fd, "Caught unhandled signal!\n", 26);
-        if (err < -1) {
-            exit(err);
-        }
+        err = write(fd, "Caught unhandled signal!\n", 26);
         break;
+    }
+
+    if (err < -1)
+    {
+        exit(err);
     }
 
     close(server_socket);
@@ -134,7 +132,7 @@ void setup_socket()
     // Prepare the sockaddr_in structure
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
-    server.sin_port = htons(8888);
+    server.sin_port = htons(2625);
 
     // Bind
     if (bind(server_socket, (struct sockaddr *)&server, sizeof(server)) < 0)
