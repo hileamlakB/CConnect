@@ -4,7 +4,7 @@ This project is a simple example of a disributed chat system. Here we explore to
 * Design the same system, but use Python gRPC.
 
 ## Getting Started
-Follow these instructions to get set up for demo day. We assume that students in the class will have a working C compiler set up and have working proficiency in C and Python.
+Follow these instructions to get set up the project. We assume you already have working C compiler set up and have working proficiency in C and Python.
 
 ### Setup (Wire Protocol)
 1. Clone the repository to your local machine by running  
