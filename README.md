@@ -1,8 +1,6 @@
 # CConnect
-This repository contains code for the first design exercise of the Spring 2023 edition of Harvard's CS262: Introduction to Distributed Systems.
-
-At a high level, the first design project consisted of building a simple chat application in two parts:
-* Design a wire protocol and implement code in C for both the client and server to communicate.
+This project is a simple example of a disributed chat system. Here we explore to different alternatives of building such a system, i.e
+* Using a custom wire protocl in C
 * Design the same system, but use Python gRPC.
 
 ## Getting Started
